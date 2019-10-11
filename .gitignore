@@ -1,3 +1,6 @@
 credentials*.json
 *.tfstate*
 vagrant/.vagrant
+packer/packer
+packer/packer*exe
+packer/packer-builder*
