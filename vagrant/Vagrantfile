@@ -1,0 +1,13 @@
+Vagrant.configure("2") do |config|
+  # configure box to use
+  config.vm.box = "centos/7"
+
+  # install Ansible
+  config.vm.provision "shell", inline: <<-SHELL
+   yum install -y deltarpm epel-release ansible
+  SHELL
+  # run playbook
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "../ansible/simple-webserver.yml"
+  end
+end

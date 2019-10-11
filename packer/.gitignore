@@ -1,0 +1,5 @@
+*.iso
+packer
+packer-builder*
+packer*.exe
+crendentials*.json

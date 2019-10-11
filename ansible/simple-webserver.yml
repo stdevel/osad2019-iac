@@ -1,0 +1,39 @@
+---
+- name: Install simple web server
+  gather_facts: false
+  hosts: localhost
+  become: yes
+  
+  tasks:
+
+    - name: Change root password (to vagrant)
+      user:
+        name: root
+        password: '$6$awDZHFsWWOTiRUVi$zU35z1LY28VCa/.B2i70CzYBtLx4OSzjNtu8LfnoaEUJGzuS8KhY.BMttLaip4jCgfaGtimBW7wJt5Stc8odJ.'
+    - name: Replace sshd config
+      template:
+        src: sshd_config
+        dest: "/etc/ssh/sshd_config"
+        mode: "0600"
+        owner: root
+        group: root
+    - name: Enable and restart sshd
+      service:
+        name: sshd
+        state: restarted
+        enabled: yes
+    - name: Install webserver
+      yum:
+        name: httpd
+        state: latest
+        use_backend: yum
+    - name: Enable webserver
+      service:
+        name: httpd
+        state: started
+        enabled: no
+    - name: Disable firewall as we also like to live dangerously
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no

@@ -1,0 +1,100 @@
+{
+  "variables" : {
+    "cpus": "2",
+    "memory": "2048",
+    "memory_reserve_all": "false",
+    "template_name": "template_centos7",
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "disk_size": "20480",
+    "disk_controller_type": "pvscsi",
+    "disk_thin_provisioned": "false",
+    "autoinst_cfg": "http/ks.cfg",
+    "config_user": "vagrant",
+    "config_pass": "vagrant",
+    "iso_path": "[SSCFILER] software\\CentOS\\",
+    "iso_file": "CentOS-7-x86_64-Minimal-1810.iso",
+    "iso_checksum": "38d5d51d9d100fd73df031ffd6bd8b1297ce24660dc8c13a3b8b4534a4bd291c",
+    "iso_checksum_type": "md5",
+	"vsphere_server": "vc.giertz.loc",
+	"vsphere_datacenter": "LABWI",
+    "vsphere_username": "DO_NOT_PASTE_CREDENTIALS_IN_THIS_FILE",
+    "vsphere_password": "DO_NOT_PASTE_CREDENTIALS_IN_THIS_FILE",
+    "vsphere_insecure_connection": "true",
+    "vsphere_datastore": "VMFS01-Prod-SWV3",
+    "vsphere_cluster": "UCS-Cluster",
+	"network": "PoC_Linux",
+    "network_card": "vmxnet3",
+    "folder": "Templates"
+  },
+  "builders": [
+    {
+      "type": "vsphere-iso",
+      "vcenter_server": "{{user `vsphere_server`}}",
+      "datacenter": "{{user `vsphere_datacenter`}}",
+      "username": "{{user `vsphere_username`}}",
+      "password": "{{user `vsphere_password`}}",
+      "insecure_connection": "{{user `vsphere_insecure_connection`}}",
+      "datastore": "{{user `vsphere_datastore`}}",
+      "datacenter": "{{user `vsphere_datacenter`}}",
+      "cluster": "{{user `vsphere_cluster`}}",
+      "vm_name": "{{user `template_name`}}",
+      "network": "{{user `network`}}",
+      "network_card": "{{user `network_card`}}",
+      "CPUs": "{{user `cpus`}}",
+      "cpu_cores": 1,
+      "RAM": "{{user `memory`}}",
+      "RAM_reserve_all": "{{user `memory_reserve_all`}}",
+      "disk_controller_type": "{{user `disk_controller_type`}}",
+      "disk_thin_provisioned": "{{user `disk_thin_provisioned`}}",
+      "floppy_files": [
+        "{{user `autoinst_cfg`}}"
+      ],
+      "boot_command": [
+        "<tab> inst.text inst.ks=hd:fd0:/ks.cfg net.ifnames=0 ip=dhcp<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": "{{user `disk_size`}}",
+      "guest_os_type": "centos7_64Guest",
+      "http_directory": "http",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_paths": [
+        "{{user `iso_path`}}/{{user `iso_file`}}"
+      ],
+      "shutdown_command": "sleep 30 ; echo 'vagrant' | sudo -S /sbin/poweroff",
+      "shutdown_timeout": "50m",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_timeout": "30m",
+      "convert_to_template": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "scripts/update.sh"
+    },
+	{
+	  "type": "file",
+	  "source": "../ansible/simple-webserver.yml",
+	  "destination": "/tmp/simple-webserver.yml"
+	},
+    {
+      "type": "ansible-local",
+      "playbook_file": "/tmp/simple-webserver.yml"
+    },
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "scripts/vagrant.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "scripts/cleanup.sh"
+    }
+  ]
+}

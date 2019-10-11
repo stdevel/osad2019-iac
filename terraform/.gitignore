@@ -1,0 +1,5 @@
+*.exe
+credentials*
+deploy-*.tfvars
+.terraform
+.tfstate*

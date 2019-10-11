@@ -1,0 +1,4 @@
+[demo-hosts]
+localhost ansible_port=2222 ansible_user=vagrant
+# alter and uncomment the following line for checking the Terraform VM
+#ip_address ansible_user=vagrant

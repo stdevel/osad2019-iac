@@ -1,0 +1,6 @@
+---
+- name: wrapper playbook for kitchen testing "ansible-os-hardening" with custom vars for testing
+  hosts: demo-hosts
+  become: yes
+  roles:
+    - ansible-os-hardening
