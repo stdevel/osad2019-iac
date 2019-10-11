@@ -47,7 +47,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=27   rescued=0    ignored=0
 ```
 
-If the Vagrant machine has a different port than **2222* you will need to alter the inventory file:
+If the Vagrant machine has a different port than **2222** you will need to alter the inventory file:
 ```
 [demo-hosts]
 localhost ansible_port=1337 ansible_user=vagrant
