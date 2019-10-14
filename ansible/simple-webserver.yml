@@ -3,9 +3,7 @@
   gather_facts: false
   hosts: localhost
   become: yes
-  
   tasks:
-
     - name: Change root password (to vagrant)
       user:
         name: root
