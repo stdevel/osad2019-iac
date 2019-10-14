@@ -47,7 +47,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=37   changed=0    unreachable=0    failed=0    skipped=27   rescued=0    ignored=0
 ```
 
-If the Vagrant machine has a different port than **2222** you will need to alter the inventory file:
+If the Vagrant machine has a different port than **2222** you will need to alter the [inventory](inventory) file:
 ```
 [demo-hosts]
 localhost ansible_port=1337 ansible_user=vagrant
@@ -62,7 +62,7 @@ Profile Summary: 53 successful controls, 0 control failures, 1 control skipped
 Test Summary: 125 successful, 0 failures, 1 skipped
 ```
 
-In order to harden your VM deployed by Terraform, add an entry to your Ansible inventory:
+In order to harden your VM deployed by Terraform, add an entry to your Ansible [inventory](inventory):
 
 ```
 IP_ADDRESS ansible_user=vagrant
