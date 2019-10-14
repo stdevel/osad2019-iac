@@ -1,6 +1,6 @@
 # Deploy a new Linux machine from template
 
-This terraform configuration deploys a new Linux machine from a template.
+This terraform configuration deploys a new Linux machine from a template (*the one we built with [Packer](../packer/).
 
 # Prerequisites
 Ensure to have the following requirements fulfilled:
