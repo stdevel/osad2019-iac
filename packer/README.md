@@ -1,15 +1,15 @@
 # Packer
-This folder contains a Packer configuration for crafting a CentOS 7 golden image.
+This folder contains a Packer configuration for crafting a CentOS 7 golden image on an VMware vSphere host.
 
 ## Prerequisites
 In order to build the template, ensure having the following requirements fulfilled:
-- [Packer](https://packer.io) installed
-- [packer-builder-vsphere](https://github.com/jetbrains-infra/packer-builder-vsphere/releases) plugin for your architecture installed
+- [Packer](https://packer.io) is installed
+- [packer-builder-vsphere](https://github.com/jetbrains-infra/packer-builder-vsphere/releases) plugin for your platform is installed
 - VMware vCenter Server
-- vSphere cluster with at least one host
-- at least one network and datastore
-- CentOS 7 minimal image in a datastore
-- network with direct internet access
+  - vSphere cluster with at least one host
+  - at least one network and datastore
+  - CentOS 7 minimal image in a datastore
+  - network with direct internet access
 
 ## Preparation
 Create a JSON file containing the credentials used for connecting to vCenter Server:
@@ -79,8 +79,8 @@ Packer performs the following steps:
 4. Move [CentOS kickstart file](http/ks.cfg) to a floppy image
 5. Connect floppy image to VM
 6. Power-on VM and enter Linux kernel commandline in order to boot CentOS installer in kickstart mode
-7. Installs CentOS according to kickstart profile
-8. Applies [Ansible playbook](../ansible) and cleans system
+7. Install CentOS according to kickstart profile
+8. Apply [Ansible playbook](../ansible) and clean system
 9. Shutdown VM
 10. Convert to template
 
@@ -98,4 +98,4 @@ Build the template:
 $ packer build -var-file=credentials-terraform.json centos7-x86_64.json
 ```
 
-Following the progress on the command-line and check-out vSphere vCenter interface.
+Follow the progress on the command-line and check-out the vSphere vCenter interface.
