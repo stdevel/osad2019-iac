@@ -10,4 +10,6 @@ The following steps can be done:
 4. Harden provioning workloads using the [Dev-Sec framework](dev-sec/)
 
 # Presentation
-TODO: will follow very soon...
+See the attached [presentation](presentation.pdf) for some more thoughts about Infrastructure as Code.
+
+**Note:** The presentation is in german language.
