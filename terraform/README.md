@@ -1,6 +1,6 @@
 # Deploy a new Linux machine from template
 
-This terraform configuration deploys a new Linux machine from a template (*the one we built with [Packer](../packer/).
+This terraform configuration deploys a new Linux machine from a template (*the one we built with [Packer](../packer/)*).
 
 # Prerequisites
 Ensure to have the following requirements fulfilled:
@@ -20,7 +20,7 @@ vsphere_password = "pinkepank"
 
 # Example
 
-To start, simply copy the [`demo_vm.tfvars`](demo_vm.tfvars) file and alter it to match the new VM.
+To start, copy the [`demo_vm.tfvars`](demo_vm.tfvars) file and alter it to match the new VM.
 
 The example file looks like this:
 ```

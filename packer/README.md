@@ -85,7 +85,7 @@ Packer performs the following steps:
 10. Convert to template
 
 # Creating the template
-To create the template, perform with the following steps.
+To create the template, perform the following steps.
 
 Validate the template:
 ```
